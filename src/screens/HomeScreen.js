@@ -1,25 +1,44 @@
 import React, {Component} from 'React';
-import {View, Text} from 'react-native';
-import {Button} from 'react-native-elements';
+import {Platform, View, Text} from 'react-native';
+import {Button, Card, ListItem} from 'react-native-elements';
 
 class HomeScreen extends Component {
   static navigationOptions = ({navigation}) => {
     return {
-      title: 'UdaciCards',
+      title: 'CARDY',
       headerRight: (
-        <Button title="ADD" onPress={() => navigation.navigate('addDeck')} />
+        <Button
+          backgroundColor="#3066be"
+          color="white"
+          icon={{name: 'plus', type: 'font-awesome'}}
+          title="ADD"
+          onPress={() => navigation.navigate('addDeck')}
+        />
       ),
+      headerStyle: {
+        backgroundColor: '#3066be',
+        marginTop: Platform.OS === 'android' ? 24 : 0,
+      },
+      headerTitleStyle: {
+        color: 'white',
+      },
     };
   };
 
   render() {
     return (
       <View>
-        <Text>HomeScreen</Text>
-        <Button
-          title="start quiz"
-          onPress={() => this.props.navigation.navigate('quiz')}
-        />
+        <Card title="QUIZ 1">
+          <Text style={{marginBottom: 10}}>
+            The idea with React Native Elements is more about component
+            structure than actual design.
+          </Text>
+          <Button
+            backgroundColor="#3066be"
+            title="START NOW"
+            onPress={() => this.props.navigation.navigate('quiz')}
+          />
+        </Card>
       </View>
     );
   }
