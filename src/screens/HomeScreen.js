@@ -22,6 +22,7 @@ class HomeScreen extends Component {
       headerTitleStyle: {
         color: 'white',
       },
+      headerBackTitle: null,
     };
   };
 
@@ -36,7 +37,7 @@ class HomeScreen extends Component {
           <Button
             backgroundColor="#3066be"
             title="START NOW"
-            onPress={() => this.props.navigation.navigate('quiz')}
+            onPress={() => this.props.navigation.navigate('deckHome')}
           />
         </Card>
       </View>

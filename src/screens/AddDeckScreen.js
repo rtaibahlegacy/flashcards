@@ -7,6 +7,9 @@ import {
   FormInput,
 } from 'react-native-elements';
 
+import {addDeck} from '../actions/decks';
+import {connect} from 'react-redux';
+
 class AddDeckScreen extends Component {
   static navigationOptions = ({navigation}) => {
     return {
@@ -19,6 +22,7 @@ class AddDeckScreen extends Component {
         color: 'white',
       },
       headerBackTitleStyle: {color: 'white'},
+      headerTintColor: 'white',
     };
   };
 
@@ -28,10 +32,15 @@ class AddDeckScreen extends Component {
         <FormLabel>Deck Title</FormLabel>
         <FormInput />
         <FormValidationMessage>Deck title is required</FormValidationMessage>
-        <Button backgroundColor="#3066be" color="white" title="Create" />
+        <Button
+          backgroundColor="#3066be"
+          color="white"
+          onPress={() => this.props.addDeck('test title', 'test desc')}
+          title="Create"
+        />
       </View>
     );
   }
 }
 
-export default AddDeckScreen;
+export default connect(null, {addDeck})(AddDeckScreen);
