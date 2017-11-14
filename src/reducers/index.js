@@ -5,8 +5,10 @@ export default combineReducers({
   decks: (state = {}, action) => {
     switch (action.type) {
       case ADD_DECK:
-        console.log('I am a reducer');
-        console.log('payload', action.payload);
+        return {
+          ...state,
+          decks: action.title,
+        };
 
       default:
         return state;

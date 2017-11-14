@@ -1,6 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
+import './ReactotronConfig';
+import Reactotron from 'reactotron-react-native';
+
 import {Provider} from 'react-redux';
 import {createStore, compose, applyMiddleware} from 'redux';
 import reducers from './src/reducers';
@@ -13,7 +16,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import DeckHomeScreen from './src/screens/DeckHomeScreen';
 import AddDeckScreen from './src/screens/AddDeckScreen';
 
-const store = createStore(
+const store = Reactotron.createStore(
   reducers,
   {},
   compose(applyMiddleware(), autoRehydrate()),

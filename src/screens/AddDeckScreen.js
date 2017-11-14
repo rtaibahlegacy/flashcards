@@ -11,6 +11,18 @@ import {addDeck} from '../actions/decks';
 import {connect} from 'react-redux';
 
 class AddDeckScreen extends Component {
+  state = {
+    title: '',
+    error: false,
+  };
+
+  onChangeText = title => {
+    this.setState({title});
+    if (title.length === 1) {
+      this.setState({error: false});
+    }
+  };
+
   static navigationOptions = ({navigation}) => {
     return {
       title: 'ADD NEW DECK',
@@ -30,12 +42,26 @@ class AddDeckScreen extends Component {
     return (
       <View>
         <FormLabel>Deck Title</FormLabel>
-        <FormInput />
-        <FormValidationMessage>Deck title is required</FormValidationMessage>
+        <FormInput
+          ref={input => (this.input = input)}
+          onChangeText={this.onChangeText}
+          onFocus={() => this.setState({error: false})}
+          onBlur={() => this.setState({error: false})}
+        />
+        {this.state.error ? (
+          <FormValidationMessage containerStyle={{height: 30}}>
+            Deck title is required
+          </FormValidationMessage>
+        ) : (
+          <FormValidationMessage containerStyle={{height: 30}} />
+        )}
         <Button
           backgroundColor="#3066be"
           color="white"
-          onPress={() => this.props.addDeck('test title', 'test desc')}
+          onPress={() =>
+            this.state.title === ''
+              ? this.setState({error: true})
+              : this.props.addDeck(this.state.title)}
           title="Create"
         />
       </View>
