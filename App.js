@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
 import {Provider} from 'react-redux';
-import {createStore, compose, applyMiddleware} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import reducers from './src/reducers';
 
 import {persistStore, autoRehydrate} from 'redux-persist';
@@ -12,11 +12,13 @@ import {StackNavigator} from 'react-navigation';
 import HomeScreen from './src/screens/HomeScreen';
 import DeckHomeScreen from './src/screens/DeckHomeScreen';
 import AddDeckScreen from './src/screens/AddDeckScreen';
+import Logger from 'redux-logger';
+import {composeWithDevTools} from 'redux-devtools-extension';
 
 const store = createStore(
   reducers,
   {},
-  compose(applyMiddleware(), autoRehydrate()),
+  composeWithDevTools(applyMiddleware(Logger), autoRehydrate()),
 );
 
 persistStore(store, {

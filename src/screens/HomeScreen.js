@@ -2,6 +2,9 @@ import React, {Component} from 'React';
 import {Platform, View, Text} from 'react-native';
 import {Button, Card, ListItem} from 'react-native-elements';
 
+import {connect} from 'react-redux';
+import _ from 'lodash';
+
 class HomeScreen extends Component {
   static navigationOptions = ({navigation}) => {
     return {
@@ -26,23 +29,28 @@ class HomeScreen extends Component {
     };
   };
 
-  render() {
+  renderDecks(deck) {
     return (
-      <View>
-        <Card title="QUIZ 1">
-          <Text style={{marginBottom: 10}}>
-            The idea with React Native Elements is more about component
-            structure than actual design.
-          </Text>
-          <Button
-            backgroundColor="#3066be"
-            title="START NOW"
-            onPress={() => this.props.navigation.navigate('deckHome')}
-          />
-        </Card>
+      <View key={deck.id}>
+        <Card title={deck.title} />
+        <Button
+          backgroundColor="#3066be"
+          title="START NOW"
+          onPress={() => this.props.navigation.navigate('deckHome')}
+        />
       </View>
     );
   }
+
+  render() {
+    return this.props.decks.map(deck => this.renderDecks(deck));
+  }
 }
 
-export default HomeScreen;
+function mapStateToProps({decks}) {
+  return {
+    decks: _.values(decks),
+  };
+}
+
+export default connect(mapStateToProps)(HomeScreen);
