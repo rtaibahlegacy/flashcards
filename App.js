@@ -12,6 +12,8 @@ import {StackNavigator} from 'react-navigation';
 import HomeScreen from './src/screens/HomeScreen';
 import DeckHomeScreen from './src/screens/DeckHomeScreen';
 import AddDeckScreen from './src/screens/AddDeckScreen';
+import QuizScreen from './src/screens/QuizScreen.js';
+import AddQuestionScreen from './src/screens/AddQuestionScreen.js';
 import Logger from 'redux-logger';
 import {composeWithDevTools} from 'redux-devtools-extension';
 
@@ -32,6 +34,8 @@ export default class Home extends React.Component {
       home: {screen: HomeScreen},
       addDeck: {screen: AddDeckScreen},
       deckHome: {screen: DeckHomeScreen},
+      quiz: {screen: QuizScreen},
+      addQuestion: {screen: AddQuestionScreen},
     });
 
     return (

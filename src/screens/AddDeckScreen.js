@@ -41,8 +41,8 @@ class AddDeckScreen extends Component {
   };
 
   handlePress = () => {
-    let {title} = this.state;
-    let {addDeck} = this.props;
+    const {title, id} = this.state;
+    const {addDeck} = this.props;
     if (title === '') {
       return this.setState({error: true});
     }
@@ -56,7 +56,7 @@ class AddDeckScreen extends Component {
         NavigationActions.navigate({routeName: 'home'}),
         NavigationActions.navigate({
           routeName: 'deckHome',
-          params: {title},
+          params: {title, id},
         }),
       ],
     });

@@ -1,4 +1,4 @@
-import {ADD_DECK} from '../actions/types';
+import {ADD_DECK, ADD_CARD} from '../actions/types';
 import {REHYDRATE} from 'redux-persist/constants';
 import {combineReducers} from 'redux';
 import _ from 'lodash';
@@ -15,6 +15,12 @@ export default combineReducers({
             id: action.uuid,
             title: action.title,
           },
+        };
+
+      case ADD_CARD:
+        return {
+          ...state,
+          questions: [{question, answer}],
         };
 
       default:

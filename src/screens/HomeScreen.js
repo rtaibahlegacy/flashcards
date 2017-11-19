@@ -2,6 +2,7 @@ import React, {Component} from 'React';
 import {Platform, View, ScrollView, Text} from 'react-native';
 import {Button, Card, ListItem} from 'react-native-elements';
 
+import {NavigationActions} from 'react-navigation';
 import {connect} from 'react-redux';
 import _ from 'lodash';
 
@@ -29,6 +30,21 @@ class HomeScreen extends Component {
     };
   };
 
+  handlePress = deck => {
+    console.log(deck);
+    const resetActions = NavigationActions.reset({
+      index: 1,
+      actions: [
+        NavigationActions.navigate({routeName: 'home'}),
+        NavigationActions.navigate({
+          routeName: 'deckHome',
+          params: {title: deck.title, id: deck.id},
+        }),
+      ],
+    });
+    this.props.navigation.dispatch(resetActions);
+  };
+
   renderDecks(deck) {
     return (
       <View key={deck.id}>
@@ -36,7 +52,7 @@ class HomeScreen extends Component {
         <Button
           backgroundColor="#3066be"
           title="START NOW"
-          onPress={() => this.props.navigation.navigate('deckHome')}
+          onPress={() => this.handlePress(deck)}
         />
       </View>
     );
