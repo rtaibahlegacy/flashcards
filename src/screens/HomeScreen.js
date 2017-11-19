@@ -1,5 +1,5 @@
 import React, {Component} from 'React';
-import {Platform, View, Text} from 'react-native';
+import {Platform, View, ScrollView, Text} from 'react-native';
 import {Button, Card, ListItem} from 'react-native-elements';
 
 import {connect} from 'react-redux';
@@ -43,7 +43,11 @@ class HomeScreen extends Component {
   }
 
   render() {
-    return this.props.decks.map(deck => this.renderDecks(deck));
+    return (
+      <ScrollView>
+        {this.props.decks.map(deck => this.renderDecks(deck))}
+      </ScrollView>
+    );
   }
 }
 

@@ -23,8 +23,8 @@ const store = createStore(
 
 persistStore(store, {
   storage: AsyncStorage,
-  whitelist: ['quiz', 'deck'],
-}).purge();
+  whitelist: ['decks', 'quiz'],
+});
 
 export default class Home extends React.Component {
   render() {

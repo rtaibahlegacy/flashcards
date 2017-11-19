@@ -7,6 +7,8 @@ import {
   FormInput,
 } from 'react-native-elements';
 
+import {NavigationActions} from 'react-navigation';
+
 import {addDeck} from '../actions/decks';
 import {connect} from 'react-redux';
 
@@ -38,6 +40,29 @@ class AddDeckScreen extends Component {
     };
   };
 
+  handlePress = () => {
+    let {title} = this.state;
+    let {addDeck} = this.props;
+    if (title === '') {
+      return this.setState({error: true});
+    }
+    this.input.clearText();
+
+    addDeck(title);
+
+    const resetActions = NavigationActions.reset({
+      index: 1,
+      actions: [
+        NavigationActions.navigate({routeName: 'home'}),
+        NavigationActions.navigate({
+          routeName: 'deckHome',
+          params: {title},
+        }),
+      ],
+    });
+    this.props.navigation.dispatch(resetActions);
+  };
+
   render() {
     return (
       <View>
@@ -58,10 +83,7 @@ class AddDeckScreen extends Component {
         <Button
           backgroundColor="#3066be"
           color="white"
-          onPress={() =>
-            this.state.title === ''
-              ? this.setState({error: true})
-              : this.props.addDeck(this.state.title)}
+          onPress={this.handlePress}
           title="Create"
         />
       </View>

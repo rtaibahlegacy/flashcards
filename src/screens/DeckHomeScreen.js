@@ -17,6 +17,10 @@ class DeckHomeScreen extends Component {
     };
   };
 
+  componeentDidMount() {
+    console.log(this.props);
+  }
+
   render() {
     return (
       <View>
