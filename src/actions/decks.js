@@ -10,10 +10,11 @@ export function addDeck(title) {
   };
 }
 
-export function addCard(question, answer) {
+export function addCard(question, answer,id) {
   return {
     type: ADD_CARD,
     question,
     answer,
+    id
   };
 }

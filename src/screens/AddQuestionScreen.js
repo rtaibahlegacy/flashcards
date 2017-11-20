@@ -34,6 +34,7 @@ class AddQuestionScreen extends Component {
 
   handlePress = () => {
     const {question, answer, questionError, answerError} = this.state;
+    const {id} = this.props.navigation.state.params
 
     if (question.length === 0 && answer.length === 0) {
       return this.setState({questionError: true, answerError: true});
@@ -48,7 +49,7 @@ class AddQuestionScreen extends Component {
     }
 
     if (!questionError && !answerError) {
-      this.props.addCard(question, answer);
+      this.props.addCard(question, answer, id);
     }
   };
   static navigationOptions = ({navigation}) => {
@@ -114,14 +115,4 @@ class AddQuestionScreen extends Component {
   }
 }
 
-function mapStateToProps({decks}, {navigation}) {
-  console.log(decks);
-  return {
-    decks,
-    //decks: _.values(decks).filter(
-    //  deck => deck.id === navigation.state.params.id,
-    //),
-  };
-}
-
-export default connect(mapStateToProps, {addCard})(AddQuestionScreen);
+export default connect(null, {addCard})(AddQuestionScreen);

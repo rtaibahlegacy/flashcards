@@ -19,15 +19,17 @@ export default combineReducers({
         };
 
       case ADD_CARD:
-        console.log(action.question, action.answer);
+				const newQuestion = {
+					question: action.question,
+					answer: action.answer
+				}
+
         return {
           ...state,
-          questions: [
-            {
-              question: action.question,
-              answer: action.answer,
-            },
-          ],
+					[action.id]:{
+						...state[action.id],
+						questions: state[action.id].questions.concat(newQuestion)
+					}
         };
 
       default:

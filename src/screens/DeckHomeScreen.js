@@ -3,6 +3,7 @@ import {StyleSheet, Platform, View, Text} from 'react-native';
 import {Button, Icon} from 'react-native-elements';
 import {connect} from 'react-redux';
 import _ from 'lodash';
+import {NavigationActions} from 'react-navigation'
 
 class DeckHomeScreen extends Component {
   static navigationOptions = ({navigation}) => {
@@ -18,6 +19,19 @@ class DeckHomeScreen extends Component {
       },
       headerTintColor: 'white',
     };
+  };
+
+	 handleNoQuestions = deck => {
+    const resetActions = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({
+          routeName: 'addQuestion',
+          params: {id: deck.id},
+        }),
+      ],
+    });
+    this.props.navigation.dispatch(resetActions);
   };
 
   render() {
@@ -40,7 +54,7 @@ class DeckHomeScreen extends Component {
             <Button
               backgroundColor="#f39237"
               title="ADD SOME CARDS"
-              onPress={() => this.props.navigation.navigate('addQuestion')}
+              onPress={() => this.handleNoQuestions(this.props.decks[0])}
             />
           </View>
         ) : (
