@@ -11,8 +11,6 @@ export function addDeck(title) {
 }
 
 export function addCard(question, answer) {
-  console.log('it worked');
-  console.log(question, answer);
   return {
     type: ADD_CARD,
     question,

@@ -31,7 +31,6 @@ class HomeScreen extends Component {
   };
 
   handlePress = deck => {
-    console.log(deck);
     const resetActions = NavigationActions.reset({
       index: 1,
       actions: [

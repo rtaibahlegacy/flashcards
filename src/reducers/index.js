@@ -8,6 +8,7 @@ export default combineReducers({
     switch (action.type) {
       case REHYDRATE:
         return action.payload.decks || [];
+
       case ADD_DECK:
         return {
           ...state,
@@ -18,9 +19,15 @@ export default combineReducers({
         };
 
       case ADD_CARD:
+        console.log(action.question, action.answer);
         return {
           ...state,
-          questions: [{question, answer}],
+          questions: [
+            {
+              question: action.question,
+              answer: action.answer,
+            },
+          ],
         };
 
       default:

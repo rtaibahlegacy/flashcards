@@ -70,8 +70,6 @@ class AddDeckScreen extends Component {
         <FormInput
           ref={input => (this.input = input)}
           onChangeText={this.onChangeText}
-          onFocus={() => this.setState({error: false})}
-          onBlur={() => this.setState({error: false})}
         />
         {this.state.error ? (
           <FormValidationMessage containerStyle={{height: 30}}>

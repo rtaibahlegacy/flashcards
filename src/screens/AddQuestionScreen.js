@@ -7,12 +7,50 @@ import {
   FormInput,
 } from 'react-native-elements';
 import {addCard} from '../actions/decks';
+import {connect} from 'react-redux';
+import _ from 'lodash';
 
 class AddQuestionScreen extends Component {
-  handlePress = (question, answer) => {
-    addCard();
+  state = {
+    question: '',
+    questionError: false,
+    answer: '',
+    answerError: false,
   };
 
+  onChangeQuestion = question => {
+    this.setState({question});
+    if (question.length === 1) {
+      this.setState({questionError: false});
+    }
+  };
+
+  onChangeAnswer = answer => {
+    this.setState({answer});
+    if (answer.length === 1) {
+      this.setState({answerError: false});
+    }
+  };
+
+  handlePress = () => {
+    const {question, answer, questionError, answerError} = this.state;
+
+    if (question.length === 0 && answer.length === 0) {
+      return this.setState({questionError: true, answerError: true});
+    }
+
+    if (question.length === 0) {
+      return this.setState({questionError: true});
+    }
+
+    if (answer.length === 0) {
+      return this.setState({answerError: true});
+    }
+
+    if (!questionError && !answerError) {
+      this.props.addCard(question, answer);
+    }
+  };
   static navigationOptions = ({navigation}) => {
     return {
       headerStyle: {
@@ -33,23 +71,27 @@ class AddQuestionScreen extends Component {
         <FormLabel>QUESTION</FormLabel>
         <FormInput
           ref={input => (this.input = input)}
-          onChangeText={this.onChangeText}
-          onFocus={() => this.setState({error: false})}
-          onBlur={() => this.setState({error: false})}
+          onChangeText={this.onChangeQuestion}
         />
-        <FormValidationMessage containerStyle={{height: 30}}>
-          Question is required
-        </FormValidationMessage>
+        {this.state.questionError ? (
+          <FormValidationMessage containerStyle={{height: 30}}>
+            Question is required
+          </FormValidationMessage>
+        ) : (
+          <FormValidationMessage containerStyle={{height: 30}} />
+        )}
         <FormLabel>ANSWER</FormLabel>
         <FormInput
           ref={input => (this.input = input)}
-          onChangeText={this.onChangeText}
-          onFocus={() => this.setState({error: false})}
-          onBlur={() => this.setState({error: false})}
+          onChangeText={this.onChangeAnswer}
         />
-        <FormValidationMessage containerStyle={{height: 30}}>
-          Answer is required
-        </FormValidationMessage>
+        {this.state.answerError ? (
+          <FormValidationMessage containerStyle={{height: 30}}>
+            Answer is required
+          </FormValidationMessage>
+        ) : (
+          <FormValidationMessage containerStyle={{height: 30}} />
+        )}
 
         <View
           style={{
@@ -72,4 +114,14 @@ class AddQuestionScreen extends Component {
   }
 }
 
-export default AddQuestionScreen;
+function mapStateToProps({decks}, {navigation}) {
+  console.log(decks);
+  return {
+    decks,
+    //decks: _.values(decks).filter(
+    //  deck => deck.id === navigation.state.params.id,
+    //),
+  };
+}
+
+export default connect(mapStateToProps, {addCard})(AddQuestionScreen);
