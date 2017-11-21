@@ -1,20 +1,20 @@
-import React, {Component} from 'React';
-import {Platform, View, ScrollView, Text} from 'react-native';
-import {Button, Card, ListItem} from 'react-native-elements';
+import React, { Component } from 'React';
+import { Platform, View, ScrollView, Text } from 'react-native';
+import { Button, Card, ListItem } from 'react-native-elements';
 
-import {NavigationActions} from 'react-navigation';
-import {connect} from 'react-redux';
+import { NavigationActions } from 'react-navigation';
+import { connect } from 'react-redux';
 import _ from 'lodash';
 
 class HomeScreen extends Component {
-  static navigationOptions = ({navigation}) => {
+  static navigationOptions = ({ navigation }) => {
     return {
       title: 'CARDY',
       headerRight: (
         <Button
           backgroundColor="#3066be"
           color="white"
-          icon={{name: 'plus', type: 'font-awesome'}}
+          icon={{ name: 'plus', type: 'font-awesome' }}
           title="ADD"
           onPress={() => navigation.navigate('addDeck')}
         />
@@ -34,10 +34,10 @@ class HomeScreen extends Component {
     const resetActions = NavigationActions.reset({
       index: 1,
       actions: [
-        NavigationActions.navigate({routeName: 'home'}),
+        NavigationActions.navigate({ routeName: 'home' }),
         NavigationActions.navigate({
           routeName: 'deckHome',
-          params: {title: deck.title, id: deck.id},
+          params: { title: deck.title, id: deck.id },
         }),
       ],
     });
@@ -47,26 +47,20 @@ class HomeScreen extends Component {
   renderDecks(deck) {
     return (
       <View key={deck.id}>
-        <Card title={deck.title} />
-        <Button
-          backgroundColor="#3066be"
-          title="START NOW"
-          onPress={() => this.handlePress(deck)}
-        />
+        <Card title={deck.title}>
+          <Text style={{textAlign: 'center'}}>{deck.questions.length} Cards</Text>
+        </Card>
+        <Button backgroundColor="#3066be" title="START NOW" onPress={() => this.handlePress(deck)} />
       </View>
     );
   }
 
   render() {
-    return (
-      <ScrollView>
-        {this.props.decks.map(deck => this.renderDecks(deck))}
-      </ScrollView>
-    );
+    return <ScrollView>{this.props.decks.map(deck => this.renderDecks(deck))}</ScrollView>;
   }
 }
 
-function mapStateToProps({decks}) {
+function mapStateToProps({ decks }) {
   return {
     decks: _.values(decks),
   };

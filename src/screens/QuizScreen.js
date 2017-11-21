@@ -65,10 +65,11 @@ class QuizScreen extends Component {
             <Card wrapperStyle={{ height }} title={this.props.questions[currentCard - 1].question}>
               <View>
                 <Button backgroundColor="#FFFFFF" title="View answer" color="#3066be" fontSize={16} />
+								<View style={{marginTop: height-260}}>
                 <Button
                   onPress={this.handleCorrect}
                   backgroundColor="#388E3C"
-                  buttonStyle={{ marginTop: height - 260, marginBottom: 10, height: 65 }}
+                  buttonStyle={{  marginBottom: 10, height: 65 }}
                   title="Correct"
                 />
                 <Button
@@ -77,6 +78,7 @@ class QuizScreen extends Component {
                   buttonStyle={{ height: 65 }}
                   title="Incorrect"
                 />
+							</View>
               </View>
             </Card>
           </View>
