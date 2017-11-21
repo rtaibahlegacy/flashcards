@@ -1,6 +1,6 @@
-import {ADD_DECK, ADD_CARD} from '../actions/types';
-import {REHYDRATE} from 'redux-persist/constants';
-import {combineReducers} from 'redux';
+import { ADD_DECK, ADD_CARD } from '../actions/types';
+import { REHYDRATE } from 'redux-persist/constants';
+import { combineReducers } from 'redux';
 import _ from 'lodash';
 
 export default combineReducers({
@@ -15,21 +15,22 @@ export default combineReducers({
           [action.uuid]: {
             id: action.uuid,
             title: action.title,
+            questions: [],
           },
         };
 
       case ADD_CARD:
-				const newQuestion = {
-					question: action.question,
-					answer: action.answer
-				}
+        const newQuestion = {
+          question: action.question,
+          answer: action.answer,
+        };
 
         return {
           ...state,
-					[action.id]:{
-						...state[action.id],
-						questions: state[action.id].questions.concat(newQuestion)
-					}
+          [action.id]: {
+            ...state[action.id],
+            questions: [...state[action.id].questions, newQuestion],
+          },
         };
 
       default:
