@@ -1,5 +1,23 @@
 {
   "expo": {
-    "sdkVersion": "22.0.0"
+    "sdkVersion": "20.0.0",
+    "orientation": "portrait",
+    "name": "Flashy",
+    "description": "The best flashcard ever",
+    "slug": "expo.io/@rtaibah/flashy",
+    "version": ".10",
+    "icon":
+      "https://www.educationalappstore.com/images/upload/10535-logo-tinycards-flashcards-by-duolingo.jpg",
+    "notification": {
+      "icon":
+        "https://www.educationalappstore.com/images/upload/10535-logo-tinycards-flashcards-by-duolingo.jpg"
+    },
+    "ios": {
+      "bundleIdentifier": "org.flashy.exp"
+    },
+    "android": {
+      "versionCode": 2,
+      "package": "org.flashy.exp"
+    }
   }
 }
