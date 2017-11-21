@@ -7,6 +7,7 @@ import {
   FormInput,
 } from 'react-native-elements';
 
+import UUID from 'uuid';
 import {NavigationActions} from 'react-navigation';
 
 import {addDeck} from '../actions/decks';
@@ -41,14 +42,15 @@ class AddDeckScreen extends Component {
   };
 
   handlePress = () => {
-    const {title, id} = this.state;
+		const id = UUID();
+    const {title} = this.state;
     const {addDeck} = this.props;
     if (title === '') {
       return this.setState({error: true});
     }
     this.input.clearText();
 
-    addDeck(title);
+    addDeck(title,id);
 
     const resetActions = NavigationActions.reset({
       index: 1,

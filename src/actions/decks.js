@@ -1,8 +1,6 @@
-import UUID from 'uuid';
 import {ADD_DECK, ADD_CARD} from './types';
 
-export function addDeck(title) {
-  const uuid = UUID();
+export function addDeck(title,uuid) {
   return {
     type: ADD_DECK,
     title,

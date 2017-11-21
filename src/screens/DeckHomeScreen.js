@@ -23,8 +23,9 @@ class DeckHomeScreen extends Component {
 
 	 handleNoQuestions = deck => {
     const resetActions = NavigationActions.reset({
-      index: 0,
+      index: 1,
       actions: [
+        NavigationActions.navigate({routeName: 'home'}),
         NavigationActions.navigate({
           routeName: 'addQuestion',
           params: {id: deck.id},
@@ -40,7 +41,7 @@ class DeckHomeScreen extends Component {
       <View style={styles.containerStyle}>
         <Text style={styles.TitleStyle}>{`${DeckTitle} Deck`}</Text>
 
-        {DeckTitle || this.props.decks[0].cards === undefined ? (
+        {DeckTitle || this.props.deck.questions === [] ? (
           <View>
             <Icon
               reverse
@@ -54,7 +55,7 @@ class DeckHomeScreen extends Component {
             <Button
               backgroundColor="#f39237"
               title="ADD SOME CARDS"
-              onPress={() => this.handleNoQuestions(this.props.decks[0])}
+              onPress={() => this.handleNoQuestions(this.props.deck)}
             />
           </View>
         ) : (
@@ -74,9 +75,7 @@ class DeckHomeScreen extends Component {
 
 function mapStateToProps({decks}, {navigation}) {
   return {
-    decks: _.values(decks).filter(
-      deck => deck.id === navigation.state.params.id,
-    ),
+		deck: decks[navigation.state.params.id]
   };
 }
 
