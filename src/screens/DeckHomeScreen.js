@@ -6,6 +6,10 @@ import _ from 'lodash';
 import { NavigationActions } from 'react-navigation';
 
 class DeckHomeScreen extends Component {
+  state = {
+    numberOfCards: this.props.deck.questions.length,
+  };
+
   static navigationOptions = ({ navigation }) => {
     const DeckTitle = navigation.state.params.title;
     return {
@@ -21,7 +25,7 @@ class DeckHomeScreen extends Component {
     };
   };
 
-  handleNoQuestions = deck => {
+  addQuestions = deck => {
     const DeckTitle = this.props.navigation.state.params.title;
     const resetActions = NavigationActions.reset({
       index: 1,
@@ -38,6 +42,7 @@ class DeckHomeScreen extends Component {
 
   render() {
     const DeckTitle = this.props.navigation.state.params.title;
+    const { numberOfCards } = this.state;
     return (
       <View style={styles.containerStyle}>
         <Text style={styles.TitleStyle}>{`${DeckTitle} Deck`}</Text>
@@ -48,15 +53,27 @@ class DeckHomeScreen extends Component {
             <Button
               backgroundColor="#f39237"
               title="ADD SOME CARDS"
-              onPress={() => this.handleNoQuestions(this.props.deck)}
+              onPress={() => this.addQuestions(this.props.deck)}
             />
           </View>
         ) : (
           <View>
-            <Text> Questions found! </Text>
+            <Text style={styles.numberOfCards}>
+              {' '}
+              {numberOfCards}
+              {numberOfCards === 1 ? ' Card' : ' Cards'}{' '}
+            </Text>
+						<Button 
+							backgroundColor= '#E9E9EF'
+							title="Add more?" 
+              color="#3066be"
+							fontSize={16}
+							buttonStyle={{paddingBottom:40}}
+							onPress={()=> this.addQuestions(this.props.deck)}
+						/>
             <Button
               backgroundColor="#3066be"
-              title="START NOW"
+              title="START CHALLENGE"
               onPress={() => this.props.navigation.navigate('quiz')}
             />
           </View>
@@ -90,5 +107,10 @@ const styles = StyleSheet.create({
     margin: 20,
     textAlign: 'center',
     color: '#636060',
+  },
+  numberOfCards: {
+    color: '#636060',
+    fontSize: 20,
+    textAlign: 'center',
   },
 });

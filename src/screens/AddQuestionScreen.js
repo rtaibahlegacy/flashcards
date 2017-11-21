@@ -45,6 +45,7 @@ class AddQuestionScreen extends Component {
     }
 
     if (!questionError && !answerError) {
+			this.setState({question:'',answer:''})
       this.questionInput.clearText();
       this.answerInput.clearText();
       this.props.addCard(question, answer, id);
