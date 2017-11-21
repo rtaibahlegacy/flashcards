@@ -4,7 +4,7 @@
     "orientation": "portrait",
     "name": "Flashy",
     "description": "The best flashcard ever",
-    "slug": "expo.io/@rtaibah/flashy",
+    "slug": "flashy",
     "version": ".10",
     "icon": "./src/assets/img/flashy.png",
     "notification": {
