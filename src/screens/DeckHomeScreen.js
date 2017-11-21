@@ -1,12 +1,12 @@
-import React, {Component} from 'React';
-import {StyleSheet, Platform, View, Text} from 'react-native';
-import {Button, Icon} from 'react-native-elements';
-import {connect} from 'react-redux';
+import React, { Component } from 'React';
+import { StyleSheet, Platform, View, Text } from 'react-native';
+import { Button, Icon } from 'react-native-elements';
+import { connect } from 'react-redux';
 import _ from 'lodash';
-import {NavigationActions} from 'react-navigation'
+import { NavigationActions } from 'react-navigation';
 
 class DeckHomeScreen extends Component {
-  static navigationOptions = ({navigation}) => {
+  static navigationOptions = ({ navigation }) => {
     const DeckTitle = navigation.state.params.title;
     return {
       title: `${DeckTitle}`,
@@ -21,14 +21,16 @@ class DeckHomeScreen extends Component {
     };
   };
 
-	 handleNoQuestions = deck => {
+  handleNoQuestions = deck => {
+    const DeckTitle = this.props.navigation.state.params.title;
+    console.log(DeckTitle);
     const resetActions = NavigationActions.reset({
       index: 1,
       actions: [
-        NavigationActions.navigate({routeName: 'home'}),
+        NavigationActions.navigate({ routeName: 'home' }),
         NavigationActions.navigate({
           routeName: 'addQuestion',
-          params: {id: deck.id},
+          params: { id: deck.id, title: DeckTitle },
         }),
       ],
     });
@@ -40,17 +42,9 @@ class DeckHomeScreen extends Component {
     return (
       <View style={styles.containerStyle}>
         <Text style={styles.TitleStyle}>{`${DeckTitle} Deck`}</Text>
-
-        {DeckTitle || this.props.deck.questions === [] ? (
+        {!this.props.deck.questions.length ? (
           <View>
-            <Icon
-              reverse
-              name="frown-o"
-              type="font-awesome"
-              color="#636060"
-              reverse={false}
-              size={70}
-            />
+            <Icon reverse name="frown-o" type="font-awesome" color="#636060" reverse={false} size={70} />
             <Text style={styles.NoCards}>This deck has no cards :(</Text>
             <Button
               backgroundColor="#f39237"
@@ -73,9 +67,9 @@ class DeckHomeScreen extends Component {
   }
 }
 
-function mapStateToProps({decks}, {navigation}) {
+function mapStateToProps({ decks }, { navigation }) {
   return {
-		deck: decks[navigation.state.params.id]
+    deck: decks[navigation.state.params.id],
   };
 }
 
