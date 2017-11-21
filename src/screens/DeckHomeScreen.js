@@ -23,7 +23,6 @@ class DeckHomeScreen extends Component {
 
   handleNoQuestions = deck => {
     const DeckTitle = this.props.navigation.state.params.title;
-    console.log(DeckTitle);
     const resetActions = NavigationActions.reset({
       index: 1,
       actions: [
