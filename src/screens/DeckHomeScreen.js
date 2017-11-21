@@ -40,6 +40,22 @@ class DeckHomeScreen extends Component {
     this.props.navigation.dispatch(resetActions);
   };
 
+	startChallenge = deck => {
+   const DeckTitle = this.props.navigation.state.params.title;
+    const resetActions = NavigationActions.reset({
+      index: 1,
+      actions: [
+        NavigationActions.navigate({ routeName: 'home' }),
+        NavigationActions.navigate({
+          routeName: 'quiz',
+          params: { id: deck.id, title: DeckTitle },
+        }),
+      ],
+    });
+    this.props.navigation.dispatch(resetActions);
+
+	}
+
   render() {
     const DeckTitle = this.props.navigation.state.params.title;
     const { numberOfCards } = this.state;
@@ -74,7 +90,7 @@ class DeckHomeScreen extends Component {
             <Button
               backgroundColor="#3066be"
               title="START CHALLENGE"
-              onPress={() => this.props.navigation.navigate('quiz')}
+							onPress={()=> this.startChallenge(this.props.deck)}
             />
           </View>
         )}
