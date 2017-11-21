@@ -6,11 +6,9 @@
     "description": "The best flashcard ever",
     "slug": "expo.io/@rtaibah/flashy",
     "version": ".10",
-    "icon":
-      "https://www.educationalappstore.com/images/upload/10535-logo-tinycards-flashcards-by-duolingo.jpg",
+    "icon": "./src/assets/img/flashy.png",
     "notification": {
-      "icon":
-        "https://www.educationalappstore.com/images/upload/10535-logo-tinycards-flashcards-by-duolingo.jpg"
+      "icon": "./src/assets/img/flashy-icon.png"
     },
     "ios": {
       "bundleIdentifier": "org.flashy.exp"
