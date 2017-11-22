@@ -1,12 +1,9 @@
-import React, {Component} from 'React';
-import {Dimensions, Platform, View, Text, StyleSheet} from 'react-native';
-import {Card, Button} from 'react-native-elements';
-import {connect} from 'react-redux';
-import {NavigationActions} from 'react-navigation';
-import {
-  clearLocalNotification,
-  setLocalNotification,
-} from '../util/notifications';
+import React, { Component } from 'React';
+import { Dimensions, Platform, View, Text, StyleSheet } from 'react-native';
+import { Card, Button } from 'react-native-elements';
+import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
+import { clearLocalNotification, setLocalNotification } from '../util/notifications';
 
 class QuizScreen extends Component {
   state = {
@@ -17,7 +14,7 @@ class QuizScreen extends Component {
     viewAnswer: false,
   };
 
-  static navigationOptions = ({navigation}) => {
+  static navigationOptions = ({ navigation }) => {
     const DeckTitle = navigation.state.params.title;
     return {
       title: `${DeckTitle}`,
@@ -33,18 +30,18 @@ class QuizScreen extends Component {
   };
 
   toggleAnswer = () => {
-    this.setState({viewAnswer: !this.state.viewAnswer});
+    this.setState({ viewAnswer: !this.state.viewAnswer });
   };
 
   handleCorrect = () => {
-    const {currentCard, correct} = this.state;
-    this.setState({correct: correct + 1, currentCard: currentCard + 1});
+    const { currentCard, correct } = this.state;
+    this.setState({ correct: correct + 1, currentCard: currentCard + 1 });
     this.toggleAnswer();
   };
 
   handleIncorrect = () => {
-    const {currentCard, incorrect} = this.state;
-    this.setState({incorrect: incorrect + 1, currentCard: currentCard + 1});
+    const { currentCard, incorrect } = this.state;
+    this.setState({ incorrect: incorrect + 1, currentCard: currentCard + 1 });
     this.toggleAnswer();
   };
 
@@ -58,25 +55,33 @@ class QuizScreen extends Component {
   };
 
   differentDeck = () => {
+    const { title, id } = this.props.navigation.state.params;
     const resetActions = NavigationActions.reset({
-      index: 0,
-      actions: [NavigationActions.navigate({routeName: 'home'})],
+      index: 1,
+      actions: [
+        NavigationActions.navigate({routeName: 'home'}),
+        NavigationActions.navigate({
+          routeName: 'deckHome',
+          params: {
+            title,
+            id,
+          },
+        }),
+      ],
     });
     this.props.navigation.dispatch(resetActions);
   };
 
   showResults = () => {
     clearLocalNotification().then(setLocalNotification);
-    const {currentCard, numberOfCards, correct} = this.state;
+    const { currentCard, numberOfCards, correct } = this.state;
     var height = Dimensions.get('window').height - 200;
     var percentage = Math.round(correct / numberOfCards * 100);
     return (
       <View>
-        <Card title="You are done!" wrapperStyle={{height: height + 80}}>
-          <Text style={{textAlign: 'center'}}>
-            You answered {percentage}% correct!
-          </Text>
-          <View style={{marginTop: height - 100}}>
+        <Card title="You are done!" wrapperStyle={{ height: height + 80 }}>
+          <Text style={{ textAlign: 'center' }}>You answered {percentage}% correct!</Text>
+          <View style={{ marginTop: height - 100 }}>
             <Button
               onPress={this.startOver}
               backgroundColor="#FFFFFF"
@@ -87,7 +92,7 @@ class QuizScreen extends Component {
             <Button
               onPress={this.differentDeck}
               backgroundColor="#FFFFFF"
-              title="Choose Different deck"
+              title="Deck Home"
               color="#3066be"
               fontSize={16}
             />
@@ -98,7 +103,7 @@ class QuizScreen extends Component {
   };
 
   render() {
-    const {currentCard, numberOfCards, correct, viewAnswer} = this.state;
+    const { currentCard, numberOfCards, correct, viewAnswer } = this.state;
     var height = Dimensions.get('window').height - 200;
     return (
       <View>
@@ -107,9 +112,7 @@ class QuizScreen extends Component {
             <Text style={styles.counter}>
               {currentCard}/{numberOfCards}
             </Text>
-            <Card
-              wrapperStyle={{height}}
-              title={this.props.questions[currentCard - 1].question}>
+            <Card wrapperStyle={{ height }} title={this.props.questions[currentCard - 1].question}>
               <View>
                 {viewAnswer ? (
                   <Text
@@ -131,17 +134,17 @@ class QuizScreen extends Component {
                     onPress={this.toggleAnswer}
                   />
                 )}
-                <View style={{marginTop: height - 260}}>
+                <View style={{ marginTop: height - 260 }}>
                   <Button
                     onPress={this.handleCorrect}
                     backgroundColor="#388E3C"
-                    buttonStyle={{marginBottom: 10, height: 65}}
+                    buttonStyle={{ marginBottom: 10, height: 65 }}
                     title="Correct"
                   />
                   <Button
                     onPress={this.handleIncorrect}
                     backgroundColor="#D32F2F"
-                    buttonStyle={{height: 65}}
+                    buttonStyle={{ height: 65 }}
                     title="Incorrect"
                   />
                 </View>
@@ -156,7 +159,7 @@ class QuizScreen extends Component {
   }
 }
 
-function mapStatetoProps({decks}, {navigation}) {
+function mapStatetoProps({ decks }, { navigation }) {
   return {
     questions: decks[navigation.state.params.id].questions,
   };
